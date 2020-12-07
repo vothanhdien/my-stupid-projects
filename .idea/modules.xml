@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/defer-func/defer-func.iml" filepath="$PROJECT_DIR$/defer-func/defer-func.iml" />
+      <module fileurl="file://$PROJECT_DIR$/http-package/http-package.iml" filepath="$PROJECT_DIR$/http-package/http-package.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-stupid-project.iml" filepath="$PROJECT_DIR$/my-stupid-project.iml" />
+    </modules>
+  </component>
+</project>
