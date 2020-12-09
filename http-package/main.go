@@ -8,22 +8,53 @@ import (
 	"os/signal"
 )
 
+const (
+	//url = "http://localhost:8080/ping"
+	url = "https://api.ipify.org?format=json"
+)
+
 func main() {
-	testCloseResponseImmediately()
-
-	testCloseAfterRead()
-
-	testCloseWhenGoOutOfFunc()
-
-	testNotClose()
-
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
+
+	testCloseResponseImmediately()
+	// connection release
 	<-c
+	testCloseAfterRead()
+	// connection keep
+	<-c
+	testReadResponseAfterClose()
+	// connection keep
+	<-c
+	testCloseWhenGoOutOfFunc()
+	// connection keep
+	<-c
+	//testNotClose()
+	// connection keep
+	//<-c
+}
+
+func testReadResponseAfterClose() {
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	_ = resp.Body.Close()
+	if err != nil {
+		fmt.Println("testReadResponseAfterClose", err)
+		return
+	}
+
+	fmt.Println("testReadResponseAfterClose", resp.Status)
+	fmt.Println("testReadResponseAfterClose", resp.Header)
+	fmt.Println("testReadResponseAfterClose", string(body))
 }
 
 func testCloseWhenGoOutOfFunc() {
-	resp, err := http.Get("https://api.ipify.org?format=json")
+	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -40,14 +71,26 @@ func testCloseWhenGoOutOfFunc() {
 }
 
 func testCloseAfterRead() {
-	resp, err := http.Get("https://api.ipify.org?format=json")
+	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
-	resp.Body.Close()
+
+	_ = resp.Body.Close()
+	if resp.Body != nil {
+		fmt.Println("CloseAfterRead", "body not nil after close")
+	}else{
+		fmt.Println("CloseAfterRead", "body nil after close")
+	}
+	if resp != nil {
+		fmt.Println("CloseAfterRead", "response not nil after close")
+	}else {
+		fmt.Println("CloseAfterRead", "response nil after close")
+	}
+
 	if err != nil {
 		fmt.Println("CloseAfterRead", err)
 		return
@@ -57,7 +100,7 @@ func testCloseAfterRead() {
 }
 
 func testNotClose() {
-	resp, err := http.Get("https://api.ipify.org?format=json")
+	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -74,7 +117,7 @@ func testNotClose() {
 
 func testCloseResponseImmediately() {
 
-	resp, err := http.Get("https://api.ipify.org?format=json")
+	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
 		return
