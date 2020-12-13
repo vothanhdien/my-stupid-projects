@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"http-package/errPkg"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -9,28 +10,35 @@ import (
 )
 
 const (
-	//url = "http://localhost:8080/ping"
-	url = "https://api.ipify.org?format=json"
+	url = "http://localhost:8080/ping"
+	//url = "https://api.ipify.org?format=json"
 )
 
 func main() {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 
-	testCloseResponseImmediately()
-	// connection release
-	<-c
-	testCloseAfterRead()
-	// connection keep
-	<-c
-	testReadResponseAfterClose()
-	// connection keep
-	<-c
-	testCloseWhenGoOutOfFunc()
-	// connection keep
-	<-c
+	if err := errPkg.BasicSendPostWithBody(url); err != nil{
+		//fmt.Printf("%+v",err)
+		s:=fmt.Sprintf("%+v",err)
+		fmt.Printf("%v",s)
+	}
+	//<-c
+
+	//testCloseResponseImmediately()
+	//// connection release
+	//<-c
+	//testCloseAfterRead()
+	//// connection keep
+	//<-c
+	//testReadResponseAfterClose()
+	//// connection keep
+	//<-c
+	//testCloseWhenGoOutOfFunc()
+	//// connection keep
+	//<-c
 	//testNotClose()
-	// connection keep
+	//// connection keep
 	//<-c
 }
 
@@ -82,12 +90,12 @@ func testCloseAfterRead() {
 	_ = resp.Body.Close()
 	if resp.Body != nil {
 		fmt.Println("CloseAfterRead", "body not nil after close")
-	}else{
+	} else {
 		fmt.Println("CloseAfterRead", "body nil after close")
 	}
 	if resp != nil {
 		fmt.Println("CloseAfterRead", "response not nil after close")
-	}else {
+	} else {
 		fmt.Println("CloseAfterRead", "response nil after close")
 	}
 
@@ -129,6 +137,5 @@ func testCloseResponseImmediately() {
 		fmt.Println("CloseResponseImmediately", err)
 		return
 	}
-
 	fmt.Println("CloseResponseImmediately", string(body))
 }
