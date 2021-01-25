@@ -1,12 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
-	"http-package/errPkg"
 	"io/ioutil"
+	"log"
+	"net"
 	"net/http"
-	"os"
-	"os/signal"
+	"time"
 )
 
 const (
@@ -15,14 +16,40 @@ const (
 )
 
 func main() {
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-
-	if err := errPkg.BasicSendPostWithBody(url); err != nil{
-		//fmt.Printf("%+v",err)
-		s:=fmt.Sprintf("%+v",err)
-		fmt.Printf("%v",s)
+	tr := &http.Transport{
+		DialContext: (&net.Dialer{
+			Timeout:   5 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).DialContext,
+		ForceAttemptHTTP2:     true,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
 	}
+
+	cli := &http.Client{
+		Transport: tr,
+		//Timeout:   10 * time.Second,
+	}
+	reader := bytes.NewReader([]byte("{\"resp_time\":20}"))
+	resp, err := cli.Post("http://localhost:8080/delay", "application/json", reader)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer resp.Body.Close()
+	if _, err := ioutil.ReadAll(resp.Body); err != nil {
+		panic(err)
+	}
+
+	//c := make(chan os.Signal, 1)
+	//signal.Notify(c, os.Interrupt)
+	//
+	//if err := errPkg.BasicSendPostWithBody(url); err != nil{
+	//	//fmt.Printf("%+v",err)
+	//	s:=fmt.Sprintf("%+v",err)
+	//	fmt.Printf("%v",s)
+	//}
 	//<-c
 
 	//testCloseResponseImmediately()

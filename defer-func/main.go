@@ -8,6 +8,19 @@ func main() {
 	deferInCondition()
 	deferInSwitch()
 	deferInLoop()
+		fmt.Println("callback in blacklist https://sandboxqc-acnotify.zpapps.vn/v2/callback\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.validateCallbackURL\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:241\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.callbackToMerchant\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:141\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.forwardOrderCallback\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:64\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.handleForwardMerchant\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:37\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.(*Kafka).handleRetry\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/kafka.go:119\ngit.zapa.cloud/acquiring-platform/callback-proxy/database.(*Broker).ListenMessage\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/database/kafka.go:85\nruntime.goexit\n\t/home/lap11757/.gvm/gos/go1.13/src/runtime/asm_amd64.s:1357\nfail: callback URL invalid (https://sandboxqc-acnotify.zpapps.vn/v2/callback)\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.callbackToMerchant\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:145\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.forwardOrderCallback\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:64\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.handleForwardMerchant\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:37\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.(*Kafka).handleRetry\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/kafka.go:119\ngit.zapa.cloud/acquiring-platform/callback-proxy/database.(*Broker).ListenMessage\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/database/kafka.go:85\nruntime.goexit\n\t/home/lap11757/.gvm/gos/go1.13/src/runtime/asm_amd64.s:1357\nfail: CallbackToMerchant\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.forwardOrderCallback\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:66\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.handleForwardMerchant\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/merchant.go:37\ngit.zapa.cloud/acquiring-platform/callback-proxy/business.(*Kafka).handleRetry\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/business/kafka.go:119\ngit.zapa.cloud/acquiring-platform/callback-proxy/database.(*Broker).ListenMessage\n\t/home/lap11757/Workspace/vng/MEP/acquiring-platform/callback-proxy/database/kafka.go:85\nruntime.goexit\n\t/home/lap11757/.gvm/gos/go1.13/src/runtime/asm_amd64.s:1357")
+	m:= map[int]bool{1:true,2:true}
+	if m[3]{
+		fmt.Println("error")
+	}else{
+		fmt.Println("ok")
+	}
+
+	if m[2]{
+		fmt.Println("ok")
+	}else{
+		fmt.Println("error")
+	}
 }
 
 func deferStack() {

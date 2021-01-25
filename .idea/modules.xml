@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/defer-func/defer-func.iml" filepath="$PROJECT_DIR$/defer-func/defer-func.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dummy-server/dummy-server.iml" filepath="$PROJECT_DIR$/dummy-server/dummy-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/http-package/http-package.iml" filepath="$PROJECT_DIR$/http-package/http-package.iml" />
       <module fileurl="file://$PROJECT_DIR$/my-stupid-projects.iml" filepath="$PROJECT_DIR$/my-stupid-projects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pointer-reference/pointer-reference.iml" filepath="$PROJECT_DIR$/pointer-reference/pointer-reference.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sheet-file/sheet-file.iml" filepath="$PROJECT_DIR$/sheet-file/sheet-file.iml" />
     </modules>
   </component>
 </project>
